@@ -1,12 +1,17 @@
-class Beer {
-    constructor(public name: string, public img: string) {
-    }
+interface Beer {
+    name: string;
 } 
 
-function searchBeer(str: string) {
-    let beer = new Beer(str, "Bar");
+interface BeerWithImage extends Beer {
+    img: string;
+    printName(): void;
+}
+
+function searchBeer(name: string): BeerWithImage {
+    if (!name) throw Error("Search string cannot be empty.")
+    let beer: BeerWithImage = { name: name, img: "bar", printName: () => {console.log(name)} };
     return beer;
 }
 
 let searchString = "foo";
-document.body.textContent = searchBeer(searchString).name;
+searchBeer(searchString).printName();
